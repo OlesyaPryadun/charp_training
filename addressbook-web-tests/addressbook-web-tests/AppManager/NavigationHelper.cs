@@ -30,6 +30,13 @@ namespace addressbook_web_tests
             driver.FindElement(By.LinkText("home")).Click();
         }
 
+        public NavigationHelper OpenAddContactsPage()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
+
+            return this;
+        }
+
         public void OpenGroupsPage()
         {
             driver.FindElement(By.LinkText("groups")).Click();

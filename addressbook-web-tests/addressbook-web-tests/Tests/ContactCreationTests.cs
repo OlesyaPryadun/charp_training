@@ -13,10 +13,9 @@ namespace addressbook_web_tests
         [Test]
         public void NewContactCreation()
         {
-            app.ContactHelper.InitContactCreation();
-            app.ContactHelper.FillInnContactForm(new ContactData ("First Name", "Last Name"));
-            app.ContactHelper.SubmitContactCreation();
-            app.NavigationHelper.OpenHomePage();
+            ContactData newData = new ContactData("First Name", "Last Name");
+
+            app.ContactHelper.Create(newData);
         }
     
     }

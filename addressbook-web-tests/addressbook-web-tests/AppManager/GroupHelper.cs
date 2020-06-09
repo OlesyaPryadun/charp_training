@@ -31,11 +31,38 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public GroupHelper Modify(int v, GroupData newData)
+        {
+            manager.NavigationHelper.OpenGroupsPage();
+            SelectGroup(v);
+            InitGroupModification();
+            FillInGroupForm(newData);
+            SubmiGroupModification();
+            ReturnToGroupPage();
+
+            return this;
+        }
+
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+
+            return this;
+        }
+
+        public GroupHelper SubmiGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+
+            return this;
+        }
+
+
         public GroupHelper Remove(int v)
         {
             manager.NavigationHelper.OpenGroupsPage();
             manager.GroupHelper
-                .SelectGroup(1)
+                .SelectGroup(v)
                 .RemoveGroup()
                 .ReturnToGroupPage();
             return this;
@@ -90,5 +117,6 @@ namespace addressbook_web_tests
 
             return this;
         }
+
     }
 }
