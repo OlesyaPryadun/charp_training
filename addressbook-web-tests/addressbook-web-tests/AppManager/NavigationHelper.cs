@@ -27,6 +27,10 @@ namespace addressbook_web_tests
 
         public void OpenHomePage()
         {
+            if (driver.Url == baseURL + "/addressbook/")
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("home")).Click();
         }
 
@@ -39,6 +43,11 @@ namespace addressbook_web_tests
 
         public void OpenGroupsPage()
         {
+            if (driver.Url == baseURL + "/addressbook/group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("groups")).Click();
         }
     }

@@ -21,5 +21,39 @@ namespace addressbook_web_tests
             this.manager = manager;
             this.driver = manager.Driver;
         }
+
+        public void Type(By locator, string text)
+        {
+            if (text != null)
+            {
+                driver.FindElement(locator).SendKeys(text);
+            }
+           else
+           {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+           }
+
+        }
+
+        public void Click(By locator)
+        {
+
+            driver.FindElement(locator).Click();
+
+        }
+
+        public bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
     }
 }
