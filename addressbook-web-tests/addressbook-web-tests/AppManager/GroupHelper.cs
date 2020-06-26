@@ -68,8 +68,26 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public GroupHelper CreateIfNotExist(GroupData group)
+        {
+            manager.NavigationHelper.OpenGroupsPage();
+            if (GroupsExist())
+            {
+                return this;
+            }
+
+            Create(group);
+            return this;
+        }
+
+        public bool GroupsExist()
+        {
+            return IsElementPresent(By.Name("selected[]"));
+        }
+
         public GroupHelper SelectGroup(int index)
         {
+            
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
 
             return this;

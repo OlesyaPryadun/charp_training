@@ -51,6 +51,23 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public ContactHelper CreateIfNotExist(ContactData contact)
+        {
+            manager.NavigationHelper.OpenHomePage();
+            if (ContactsExist())
+            {
+                return this;
+            }
+
+            Create(contact);
+            return this;
+        }
+
+        public bool ContactsExist()
+        {
+            return IsElementPresent(By.Name("selected[]"));
+        }
+
         public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -79,6 +96,7 @@ namespace addressbook_web_tests
 
         public ContactHelper SelectContact()
         {
+
             driver.FindElement(By.Name("selected[]")).Click();
 
             return this;

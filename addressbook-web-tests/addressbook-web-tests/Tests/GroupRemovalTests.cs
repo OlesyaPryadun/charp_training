@@ -15,7 +15,13 @@ namespace addressbook_web_tests
         [Test]
         public void GroupRemoval()
         {
-            app.GroupHelper.Remove(1);
+            GroupData group = new GroupData("group name");
+            group.Header = "header name";
+            group.Footer = "footer name";
+
+            app.GroupHelper
+                .CreateIfNotExist(group)
+                .Remove(1);
 
         }
                              

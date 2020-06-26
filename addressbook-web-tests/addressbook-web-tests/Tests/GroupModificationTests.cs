@@ -16,11 +16,17 @@ namespace addressbook_web_tests
             public void GroupModification()
             {
 
+                GroupData group = new GroupData("group name");
+                group.Header = "header name";
+                group.Footer = "footer name";
+  
                 GroupData newData = new GroupData("updated group name");
                 newData.Header = "updated header name";
                 newData.Footer = "updated footer name";
 
-                app.GroupHelper.Modify(1, newData);
+                app.GroupHelper
+                    .CreateIfNotExist(group)
+                    .Modify(1, newData);
             }
 
 
