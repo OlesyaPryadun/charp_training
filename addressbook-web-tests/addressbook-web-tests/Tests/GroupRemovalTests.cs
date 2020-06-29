@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 
 
@@ -19,9 +20,15 @@ namespace addressbook_web_tests
             group.Header = "header name";
             group.Footer = "footer name";
 
-            app.GroupHelper
-                .CreateIfNotExist(group)
-                .Remove(1);
+            app.GroupHelper.CreateIfNotExist(group);
+
+            List<GroupData> oldGroups = app.GroupHelper.GetGroupList();
+
+            app.GroupHelper.Remove(0);
+
+            List<GroupData> newGroups = app.GroupHelper.GetGroupList();
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newGroups);
 
         }
                              

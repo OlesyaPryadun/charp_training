@@ -24,9 +24,19 @@ namespace addressbook_web_tests
                 newData.Header = "updated header name";
                 newData.Footer = "updated footer name";
 
-                app.GroupHelper
-                    .CreateIfNotExist(group)
-                    .Modify(1, newData);
+                app.GroupHelper.CreateIfNotExist(group);
+
+                List<GroupData> oldGroups = app.GroupHelper.GetGroupList();
+
+                app.GroupHelper.Modify(0, newData);
+
+
+                List<GroupData> newGroups = app.GroupHelper.GetGroupList();
+                oldGroups[0].Name = newData.Name;
+                oldGroups.Sort();
+                newGroups.Sort();
+                Assert.AreEqual(oldGroups, newGroups);
+
             }
 
 
