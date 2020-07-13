@@ -132,6 +132,21 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.NavigationHelper.OpenHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                var lastName = element.FindElements(By.TagName("td"))[1];
+                var firstName = element.FindElements(By.TagName("td"))[2];
+
+                contacts.Add(new ContactData(firstName.Text, lastName.Text));
+            }
+
+            return contacts;
+        }
 
 
     }
