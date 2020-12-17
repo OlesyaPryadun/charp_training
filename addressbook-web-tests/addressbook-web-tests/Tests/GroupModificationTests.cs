@@ -16,26 +16,37 @@ namespace addressbook_web_tests
             public void GroupModification()
             {
 
-                GroupData group = new GroupData("group name");
-                group.Header = "header name";
-                group.Footer = "footer name";
+                GroupData newGroupData = new GroupData("group name");
+                newGroupData.Header = "header name";
+                newGroupData.Footer = "footer name";
   
-                GroupData newData = new GroupData("updated group name");
-                newData.Header = "updated header name";
-                newData.Footer = "updated footer name";
+                GroupData updatedGroupData = new GroupData("updated group name");
+                updatedGroupData.Header = "updated header name";
+                updatedGroupData.Footer = "updated footer name";
 
-                app.GroupHelper.CreateIfNotExist(group);
+                app.GroupHelper.CreateIfNotExist(newGroupData);
 
                 List<GroupData> oldGroups = app.GroupHelper.GetGroupList();
+                GroupData oldData = oldGroups[0];
 
-                app.GroupHelper.Modify(0, newData);
+                app.GroupHelper.Modify(0, updatedGroupData);
+
+                Assert.AreEqual(oldGroups.Count, app.GroupHelper.GetGroupCount());
 
 
                 List<GroupData> newGroups = app.GroupHelper.GetGroupList();
-                oldGroups[0].Name = newData.Name;
+                oldGroups[0].Name = updatedGroupData.Name;
                 oldGroups.Sort();
                 newGroups.Sort();
                 Assert.AreEqual(oldGroups, newGroups);
+
+                foreach (GroupData group in newGroups)
+                {
+                    if (group.Id == oldData.Id)
+                    {
+                    Assert.AreEqual(updatedGroupData.Name, group.Name);
+                    }
+                }
 
             }
 
